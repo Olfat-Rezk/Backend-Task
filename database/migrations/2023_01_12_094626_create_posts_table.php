@@ -19,9 +19,9 @@ return new class extends Migration
             $table->text('body');
             $table->string('cover-img');
             $table->boolean('pinned');
-
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
+
         });
     }
 

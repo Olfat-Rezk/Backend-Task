@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\storePostRequest;
+use App\Http\Requests\updatePostRequest;
 
 class PostController extends Controller
 {
@@ -12,9 +16,16 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $posts = Post::findOrFail($id);
+        $posts = Auth()->user()->posts;
+
+        return response()->json([
+            'status' =>'true',
+            'message' =>'the posts are',
+            'post' => $posts
+        ],200);
+
 
     }
 
@@ -24,9 +35,17 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storePostRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $posts = Post::create($validated->all());
+
+        return response()->json([
+            'status' =>'true',
+            'message' =>'the posts are created successfully',
+            'post' => $posts
+        ],200);
+
     }
 
     /**
@@ -37,7 +56,15 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $posts = Auth()->user()->posts;
+        $viewPost = $posts->findOrFail($id);
+        return response()->json([
+            'status' =>'true',
+            'message' =>'the posts are created successfully',
+            'post' => $viewPost
+        ],200);
+
+
     }
 
     /**
@@ -47,9 +74,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(updatePostRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+
+        $posts = Post::findOrFail($id);
+        $posts->update($validated->all());
+        return response()->json([
+            'status' =>'true',
+            'message' =>'the posts are updated successfully',
+            'post' => $posts
+        ],200);
     }
 
     /**
@@ -60,6 +95,25 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::destroy($id);
+    }
+    public function trashed(){
+        $post = Post::onlyTrashed()->get();
+        return response()->json([
+            'status' =>'true',
+            'message' =>'the posts trashed are',
+            'post' => $post
+        ],200);
+
+    }
+    public function trashedRestore($id){
+        $post = Post::onlyTrashed()->findOrFail($id);
+        $post->restore();
+        return response()->json([
+            'status' =>'true',
+            'message' =>'the post trashed are restored',
+            'post' => $post
+        ],200);
+
     }
 }

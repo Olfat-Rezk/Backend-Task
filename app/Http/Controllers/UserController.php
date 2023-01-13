@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
  public function register(AuthRequest $request){
-    $validated = $request->validate();
+    $validated = $request->validated();
     $user = User::create([
         'name'=>$validated['name'],
         'phone'=>$validated['phone'],

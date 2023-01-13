@@ -13,7 +13,7 @@ class AuthRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class AuthRequest extends FormRequest
     {
         return [
             'name'=>'required|string',
-            'phone'=>'required|numeric|regex:01[0125][0-9]{8}|unique:users,phone',
+            'phone'=>'required|numeric|unique:users,phone', //regex:01[0125][0-9]{8}|'
             'password'=>'required|string|confirmed'
         ];
     }
