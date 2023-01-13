@@ -68,7 +68,7 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-       $tags= Tag->destroy($id);
+       $tags= Tag::destroy($id);
        return response($tags);
 
     }
