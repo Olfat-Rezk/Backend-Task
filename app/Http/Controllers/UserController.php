@@ -16,13 +16,17 @@ class UserController extends Controller
     $validated = $request->validated();
     $user = User::create([
         'name'=>$validated['name'],
+        'email'=>$validated['email'],
         'phone'=>$validated['phone'],
         'password'=>bcrypt($validated['password'])
     ]);
+    $code = rand(100000,999999);
+
     $token = $user->createToken('myapptoken')->plainTextToken;
     $response =[
         'user'=> $user,
-        'token'=> $token
+        'token'=> $token,
+        'code'=> $code
     ];
     return response($response,201);
 

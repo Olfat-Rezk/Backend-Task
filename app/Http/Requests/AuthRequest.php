@@ -25,6 +25,7 @@ class AuthRequest extends FormRequest
     {
         return [
             'name'=>'required|string',
+            'email'=>'string|email',
             'phone'=>'required|numeric|unique:users,phone', //regex:01[0125][0-9]{8}|'
             'password'=>'required|string|confirmed'
         ];

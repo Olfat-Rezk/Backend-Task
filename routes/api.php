@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
@@ -22,9 +23,12 @@ Route::get('/login',[UserController::class,'login']);
 Route::middleware('auth:sanctum')->group(function(){
 
     Route::apiResource('tags', TagController::class);
-    Route::apiResource('posts',PostController::class);
+
     Route::get('/posts/trashed',PostController::class,'trashed');
     Route::post('/posts/trashed/{id}',PostController::class,'trashedRestore' );
+
+    Route::apiResource('posts',PostController::class);
+    Route::get('/send-notification',NotificationController::class,'sendMailNotification');
 
 });
 
