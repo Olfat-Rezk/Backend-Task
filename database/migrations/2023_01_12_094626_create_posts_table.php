@@ -19,8 +19,11 @@ return new class extends Migration
             $table->text('body');
             $table->string('cover-img');
             $table->boolean('pinned');
+            $table->unsignedBigInteger('user_id');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
 
         });
     }

@@ -27,7 +27,7 @@ class MakeRequestjob extends Command
      */
     public function handle()
     {
-        $httpReq = ;
+        //$httpReq = ;
         return Command::SUCCESS;
     }
 }
