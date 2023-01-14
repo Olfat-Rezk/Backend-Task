@@ -56,7 +56,7 @@ class sendEmailNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'message'   =>  'post created successfully.'
         ];
     }
 }

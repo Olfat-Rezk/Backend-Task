@@ -24,11 +24,11 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::apiResource('tags', TagController::class);
 
-    Route::get('/posts/trashed',PostController::class,'trashed');
-    Route::post('/posts/trashed/{id}',PostController::class,'trashedRestore' );
+    // Route::get('posts/trashed',PostController::class,'trashed');
+    // Route::post('posts/trashed/{id}',PostController::class,'trashedRestore' );
 
-    Route::apiResource('posts',PostController::class);
-    Route::get('/send-notification',NotificationController::class,'sendMailNotification');
+    // Route::apiResource('posts',PostController::class);
+    //Route::get('/send-notification',NotificationController::class,'sendMailNotification');
 
 });
 

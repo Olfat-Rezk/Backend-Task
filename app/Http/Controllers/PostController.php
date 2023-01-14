@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\storePostRequest;
 use App\Http\Requests\updatePostRequest;
+use App\Notifications\sendEmailNotification;
 
 class PostController extends Controller
 {
@@ -39,6 +40,7 @@ class PostController extends Controller
     {
         $validated = $request->validated();
         $posts = Post::create($validated->all());
+        $posts->notify(new sendEmailNotification());
 
         return response()->json([
             'status' =>'true',
